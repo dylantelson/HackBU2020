@@ -10,6 +10,7 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
+    let sortby = ["Popular","Durable","Cost-Effective"]
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
@@ -23,11 +24,14 @@ class TableViewController: UITableViewController {
         return 3
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 250
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
-
-        cell.backgroundView = UIImageView.init(image: UIImage.init(named: "back"))
+        let description = sortby[indexPath.row]
+        cell.set(name: description)
         return cell
     }
 

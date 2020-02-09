@@ -11,15 +11,21 @@ import Charts
 class TableViewCell: UITableViewCell {
 
     @IBOutlet var pchart: PieChartView!
+    @IBOutlet var label1: UILabel!
+    var sortby = "Pie Chart"
     override func awakeFromNib() {
         super.awakeFromNib()
-        setupPieChart()
         // Initialization code
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        setupPieChart()
         // Configure the view for the selected state
+    }
+    
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
     
     func setupPieChart()
@@ -33,14 +39,21 @@ class TableViewCell: UITableViewCell {
       
       //put data
       var entries: [PieChartDataEntry] = Array()
-//      if(computerPart == "Storage") {
+      if(sortby == "Popular") {
           entries.append(PieChartDataEntry(value: 35.0, label: "Seagate"))
           entries.append(PieChartDataEntry(value: 20.0, label: "Toshiba"))
+          entries.append(PieChartDataEntry(value: 35.0, label: "Seagate"))
+        entries.append(PieChartDataEntry(value: 20.0, label: "Toshiba"))
           entries.append(PieChartDataEntry(value: 45.0, label: "Samsung"))
-//      } else {
-//          entries.append(PieChartDataEntry(value: 80.0, label: "Intel"))
-//          entries.append(PieChartDataEntry(value: 20.0, label: "AMD"))
-//      }
+      } else if(sortby == "Durable") {
+          entries.append(PieChartDataEntry(value: 45.0, label: "Seagate"))
+          entries.append(PieChartDataEntry(value: 30.0, label: "Toshiba"))
+          entries.append(PieChartDataEntry(value: 25.0, label: "Samsung"))
+      } else if(sortby == "Cost-Effective") {
+               entries.append(PieChartDataEntry(value: 25.0, label: "Seagate"))
+               entries.append(PieChartDataEntry(value: 30.0, label: "Toshiba"))
+               entries.append(PieChartDataEntry(value: 45.0, label: "Samsung"))
+           }
       
       let dataSet = PieChartDataSet(entries:entries, label: "")
       dataSet.colors = [UIColor.systemTeal, UIColor.blue, UIColor.systemIndigo]
@@ -48,4 +61,10 @@ class TableViewCell: UITableViewCell {
       
       pchart.data = PieChartData(dataSet: dataSet)
      }
+    func set(name: String)
+    {
+        sortby = name
+        label1.text = sortby
+                setupPieChart()
+    }
 }
