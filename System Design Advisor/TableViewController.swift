@@ -9,6 +9,8 @@
 import UIKit
 
 class TableViewController: UITableViewController {
+    
+    var computerPart : String = ""
 
     let sortby = ["Popular","Durable","Cost-Effective","Best-Service"]
     override func viewDidLoad() {
@@ -36,6 +38,14 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      //  self.performSegue(withIdentifier: "showdetails", sender: self)
+        self.performSegue(withIdentifier: "toBrandTableView", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is BrandTableViewController {
+            let next = segue.destination as? BrandTableViewController
+            next!.computerPart = self.computerPart
+        }
     }
 }

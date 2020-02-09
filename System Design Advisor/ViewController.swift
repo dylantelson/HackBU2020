@@ -199,9 +199,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                     nextQuestion = budgetQuestion
                     print("budget")
                 } else {
-                    print("bad")
-                    //currently not implemented, delete next
-                    nextQuestion = computerPartQuestion
+                    self.performSegue(withIdentifier: "inputToTableView", sender: self)
+                    return
                 }
             } else {
                 self.performSegue(withIdentifier: "inputToOutput", sender: self)
@@ -229,6 +228,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
+        if segue.destination is TableViewController {
+            let next = segue.destination as? TableViewController
+            next!.computerPart = self.computerPart
+        }
         if segue.destination is OutputView
         {
             let next = segue.destination as? OutputView

@@ -8,6 +8,8 @@
 
 import UIKit
 import Charts
+
+
 class TableViewCell: UITableViewCell {
 
     @IBOutlet var pchart: PieChartView!
