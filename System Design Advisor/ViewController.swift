@@ -214,12 +214,14 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             })
             currentQuestion = nextQuestion
         } else {
-            print(2)
+            self.errorAlert.isHidden = false
+            print("waa")
             UIView.animate(withDuration: 0.4, animations: {
                 self.errorAlert.frame.origin.y = 0
             })
             UIView.animate(withDuration: 0.4, delay: 5, animations: {
                 self.errorAlert.frame.origin.y = -1 * self.errorAlert.frame.size.height
+                //self.errorAlert.isHidden = true
             })
             currentTextField.becomeFirstResponder()
         }

@@ -13,7 +13,7 @@ class TableViewCell: UITableViewCell {
     @IBOutlet var pchart: PieChartView!
     override func awakeFromNib() {
         super.awakeFromNib()
-   //     setupPieChart()
+        setupPieChart()
         // Initialization code
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
