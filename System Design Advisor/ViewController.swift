@@ -204,7 +204,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                     nextQuestion = computerPartQuestion
                 }
             } else {
-                nextQuestion = computerPartQuestion
+                self.performSegue(withIdentifier: "inputToOutput", sender: self)
+                return
+                //nextQuestion = computerPartQuestion
             }
             UIView.animate(withDuration: 0.8, animations: {
                 self.currentQuestion.frame.origin.y = 0 - self.currentQuestion.frame.size.height
@@ -220,6 +222,32 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 self.errorAlert.frame.origin.y = -1 * self.errorAlert.frame.size.height
             })
             currentTextField.becomeFirstResponder()
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is OutputView
+        {
+            let next = segue.destination as? OutputView
+            next!.computerPart = self.computerPart
+            if(computerPart == "Storage") {
+//                let storageParts = selectedPartTextField.text?.split(separator: " ")
+//                if let brand = storageParts?[0] {
+//                    next!.storageType[0] = String(brand)
+//                }
+//                if let type = storageParts?[1] {
+//                    next!.storageType[1] = String(type)
+//                }
+//                if let size = storageParts?[2] {
+//                    next!.storageType[2] = String(size)
+//                }
+                next!.storageType[0] = currentStorageBrand
+                next!.storageType[1] = self.listOfBrandTypes[pickerView.selectedRow(inComponent: 0)][pickerView.selectedRow(inComponent: 1)]
+                next!.storageType[2] = storageSize[pickerView.selectedRow(inComponent: 2)]
+            } else {
+                next!.nonStorageType = selectedPartTextField.text!
+            }
         }
     }
     //        for n in 0 ..< textFields.count {
